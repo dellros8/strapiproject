@@ -1,0 +1,33 @@
+{
+  "connection": "default",
+  "collectionName": "orders",
+  "info": {
+    "name": "orders",
+    "description": ""
+  },
+  "options": {
+    "timestamps": true
+  },
+  "attributes": {
+    "Levererad": {
+      "default": false,
+      "type": "boolean"
+    },
+    "Name": {
+      "default": "",
+      "type": "string"
+    },
+    "Email": {
+      "default": "",
+      "type": "email"
+    },
+    "Product": {
+      "default": "",
+      "type": "string"
+    },
+    "Adress": {
+      "default": "",
+      "type": "string"
+    }
+  }
+}

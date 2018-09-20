@@ -1,0 +1,29 @@
+{
+  "connection": "default",
+  "collectionName": "comments",
+  "info": {
+    "name": "comments",
+    "description": ""
+  },
+  "options": {
+    "timestamps": true
+  },
+  "attributes": {
+    "name": {
+      "default": "",
+      "type": "string"
+    },
+    "text": {
+      "default": "",
+      "type": "text"
+    },
+    "rating": {
+      "default": "",
+      "type": "integer"
+    },
+    "Productid": {
+      "default": "",
+      "type": "string"
+    }
+  }
+}
