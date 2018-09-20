@@ -21,13 +21,17 @@
       "default": "",
       "type": "email"
     },
-    "Product": {
-      "default": "",
-      "type": "string"
-    },
     "Adress": {
       "default": "",
       "type": "string"
+    },
+    "Amount": {
+      "default": "",
+      "type": "decimal"
+    },
+    "Productnames": {
+      "default": "",
+      "type": "text"
     }
   }
 }

@@ -11,8 +11,7 @@ class CartComponent extends Component {
             order: {
                 name: "",
                 email: "",
-                adress: "",
-                levererad: false
+                adress: ""
             }
         }
         this.handleClick = this.handleClick.bind(this);
@@ -38,31 +37,40 @@ class CartComponent extends Component {
 
     makeOrder(e) {
         e.preventDefault();
-        if(this.state.cart) {
+        let productnames = [];
+        let productamount = [];
 
-            this.state.cart.map((cartitem) => {
-                axios.post("http://localhost:1337/orders", {
-                    Levererad: false,
-                    Name: this.state.order.name,
-                    Email: this.state.order.email,
-                    Product: cartitem.Name,
-                    Adress: this.state.order.adress
-                })
-                    .then(() => {
-                        const newState = localStorage.removeItem("cart");
-                        this.setState({
-                            cart: newState
-                        });
-                        alert("order lagd")
-                        this.setState({
-                            order: {
-                                name: "",
-                                email: "",
-                                adress: ""
-                            }
-                        });
-                    })
-            })
+        this.state.cart.map((product) => {
+            productnames.push(product.Name)
+            productamount.push(product.Price)
+        })
+        let namessum = productnames.join(" + ")
+        let pricesum = productamount.reduce((a, b) => a + b, 0);
+
+        if (this.state.cart) {
+
+            axios.post("http://localhost:1337/orders", {
+                Levererad: false,
+                Name: this.state.order.name,
+                Email: this.state.order.email,
+                Productnames: namessum,
+                Adress: this.state.order.adress,
+                Amount: pricesum
+
+            });
+
+            const newState = localStorage.removeItem("cart");
+            this.setState({
+                cart: newState
+            });
+            alert("order lagd")
+            this.setState({
+                order: {
+                    name: "",
+                    email: "",
+                    adress: ""
+                }
+            });
         } else {
             alert("Kundvagn tom :(")
         }
@@ -130,10 +138,10 @@ class CartComponent extends Component {
                 <Link to={"/"} className="buttontohome">&lt; Tillbaka</Link>
 
                 {cartlist}
-                <div>
+                <div className="margintopcontainer">
                     <button id="emptycart" onClick={this.handleClick}>Empty Cart</button>
 
-                    <div>
+                    <div id="makeordercontainer">
                         <form onSubmit={this.makeOrder}>
                             <h3>Make order</h3>
                             <p>Name: </p>
@@ -142,7 +150,7 @@ class CartComponent extends Component {
                             <input value={this.state.order.email} onChange={this.handleChangeEmail} type="email" required></input>
                             <p>Adress: </p>
                             <input value={this.state.order.adress} onChange={this.handleChangeAdress} type="text" required></input>
-                            <br></br><button className="putincart">Checkout</button>
+                            <br></br><br></br><button className="putincart">Checkout</button>
                         </form>
                     </div>
                 </div>
